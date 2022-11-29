@@ -45,17 +45,21 @@ public class DashboardStepDefs
          */
 
         // 1 -  Make connection
-        // DB_Util.createConnection();--> Since we have custom hooks we dont need to connect database from step defs
+        //DB_Util.createConnection();
 
         // USERS
             //Run Query
             DB_Util.runQuery("select count(*) from users");
 
             //Store Data
-            String expectedUsers = DB_Util.getCellValue(1,1);
+            String expectedUsers = DB_Util.getFirstRowFirstColumn();
 
             //Compare
             Assert.assertEquals(expectedUsers,actualUserNumbers);
+        // BOOKS
+
+        //Run Query
+        DB_Util.runQuery("select count(*) from books");
 
         // BOOKS
 
@@ -81,9 +85,8 @@ public class DashboardStepDefs
 
 
         // Close Connection
-        // DB_Util.destroy(); --> After("@db") will close connections
+       // DB_Util.destroy();
 
     }
-
 
 }
